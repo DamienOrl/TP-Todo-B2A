@@ -1,0 +1,13 @@
+html
+  head
+    title Todolists
+  body
+    h1 Users:
+    form(action='', method='POST')
+    p
+      | Message:
+      input(type='text' name='message' value='')
+      | Completion:
+      Not done: input(type='checkbox' name='completion' checked=true)
+      Done: input(type='checkbox' name='completion')
+    input(type='submit' value='Add todo')

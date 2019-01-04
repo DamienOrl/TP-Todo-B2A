@@ -1,0 +1,14 @@
+html
+  head
+    title Todolists
+  body
+    h1 Todos:
+    ul
+      each val in todos
+        li= 'Message: ' + val.message
+        li= 'Completion: ' + val.completion
+        li= 'Created: ' + val.created_at
+        li= 'Updated: ' + val.updated_at
+        br
+      else
+        h1 No todos found!

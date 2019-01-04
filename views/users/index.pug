@@ -1,0 +1,16 @@
+html
+  head
+    title Todolists
+  body
+    h1 Users:
+    ul
+      each val in users
+        li= 'User: ' + val.username
+        li= 'First name: ' + val.firstname
+        li= 'Last name: ' + val.lastname
+        li= 'Created: ' + val.created_at
+        li= 'Updated: ' + val.updated_at
+        li= 'Password: ' + val.password
+        br
+      else
+        h1 No users found!
