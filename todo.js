@@ -3,7 +3,7 @@ const app = express()
 const db = require('sqlite')
 const moment = require('moment')
 const bcrypt = require('bcrypt')
-moment.locale()
+
 
 app.set('views', './views')
 app.set('view engine', 'pug')
@@ -83,11 +83,11 @@ app.get('/todos/:ROWID', (req, res, next) => {
 
 app.post('/todos', (req, res, next) => {
   console.log(req.body)
-  db.run("INSERT INTO todos (message, completion, created_at, updated_at) VALUES ('" + req.body.message + "', '" + req.body.completion + "', '" + moment().format('LLLL') + "', '" + moment().format('LLLL') + "');")
+  db.run("INSERT INTO todos (message, completion, userId, created_at, updated_at) VALUES ('" + req.body.message + "', '" + req.body.completion + "', '" + req.body.userId + "', '" + moment().format('MMMM Do YYYY, h:mm:ss a') + "', '" + moment().format('MMMM Do YYYY, h:mm:ss a') + "');")
   .then((request) => {
     res.format ({
       'text/html': function (){
-        res.render('todos/index')
+        res.redirect('todos/index')
       },
       'application/json': function (){
         res.send({message: "Post successful!"})
@@ -106,7 +106,7 @@ app.delete('/todos/:ROWID', (req, res, next) => {
   .then(() => {
     res.format ({
       'text/html': function (){
-        res.render('todos/index', {})
+        res.redirect('index')
       },
       'application/json': function (){
         res.json({message: 'Deletion successful!'})
@@ -122,11 +122,11 @@ app.delete('/todos/:ROWID', (req, res, next) => {
 
 app.put('/todos/:ROWID', (req, res, next) => {
   db.run("UPDATE todos SET completion = '" + req.body.completion + "' WHERE ROWID = '" + req.params.ROWID + "';")
-  db.run("UPDATE todos SET updated_at = '" + moment().format('LLLL') + "' WHERE ROWID = '" + req.params.ROWID + "';")
+  db.run("UPDATE todos SET updated_at = '" + moment().format('MMMM Do YYYY, h:mm:ss a') + "' WHERE ROWID = '" + req.params.ROWID + "';")
   .then(() => {
     res.format ({
       'text/html': function (){
-        res.render('todos/index', {})
+        res.redirect('todos/index')
       },
       'application/json': function (){
         res.json({message:'Updated!'})
@@ -164,15 +164,15 @@ app.get('/users', (req, res, next) => {
 
 app.get('/users/:ROWID', (req, res, next) => {
   db.all("SELECT * FROM users WHERE ROWID = '" + req.params.ROWID + "';")
-  .then((todo) => {
+  .then((user) => {
     res.format ({
       'text/html': function (){
-        res.render('users/how', {
-          todo: todo
+        res.render('users/show', {
+          user: user
         })
       },
       'application/json': function (){
-        res.send(todo)
+        res.send(user)
       }
     })
   })
@@ -185,11 +185,11 @@ app.get('/users/:ROWID', (req, res, next) => {
 
 app.post('/users', (req, res, next) => {
   console.log(req.body)
-  db.run("INSERT INTO users (firstname, lastname, username, password, email, created_at, updated_at) VALUES ('" + req.body.firstname + "', '" + req.body.lastname + "', '" + req.body.username + "', '" + bcrypt.hash(req.body.password, 10) + "', '" + req.body.email + "', '" + moment().format('LLLL') + "', '" + moment().format('LLLL') + "');")
+  db.run("INSERT INTO users(firstname, lastname, username, password, email, createdAt, updatedAt) VALUES ('" + req.body.firstname + "' , '" + req.body.lastname + "' , '" + req.body.username + "' , '" + bcrypt.hashSync(req.body.password, 10) + "' , '" + req.body.email + "' , '" + moment().format('MMMM Do YYYY, h:mm:ss a') + "', '" + moment().format('MMMM Do YYYY, h:mm:ss a') + "');")
   .then((request) => {
     res.format ({
       'text/html': function (){
-        res.render('users/index')
+        res.redirect('users/index')
       },
       'application/json': function (){
         res.send({message: "New user created!"})
@@ -208,7 +208,7 @@ app.delete('/users/:ROWID', (req, res, next) => {
   .then(() => {
     res.format ({
       'text/html': function (){
-        res.render('users/index', {})
+        res.redirect('users/index')
       },
       'application/json': function (){
         res.json({message: 'Deletion successful!'})
@@ -222,11 +222,14 @@ app.delete('/users/:ROWID', (req, res, next) => {
 })
 
 app.put('/users/:ROWID', (req, res, next) => {
-  db.run("UPDATE users SET updated_at = '" + moment().format('LLLL') + "' WHERE ROWID = '" + req.params.ROWID + "';")
+  db.run("UPDATE users SET username = '" + req.body.username + "' WHERE ROWID = '" + req.params.ROWID + "';")
+  db.run("UPDATE users SET firstname = '" + req.body.firstname + "' WHERE ROWID = '" + req.params.ROWID + "';")
+  db.run("UPDATE users SET lastname = '" + req.body.lastname + "' WHERE ROWID = '" + req.params.ROWID + "';")
+  db.run("UPDATE users SET updated_at = '" + moment().format('MMMM Do YYYY, h:mm:ss a') + "' WHERE ROWID = '" + req.params.ROWID + "';")
   .then(() => {
     res.format ({
       'text/html': function (){
-        res.render('users/index', {})
+        res.redirect('users/index')
       },
       'application/json': function (){
         res.json({message:'Updated!'})

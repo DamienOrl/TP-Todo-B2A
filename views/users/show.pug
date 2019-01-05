@@ -2,13 +2,14 @@ html
   head
     title Todolists
   body
-    h1 Todo
+    h1 User
     ul
-      each val in todo
-        li= 'Message: ' + val.message
-        li= 'Completion: ' + val.completion
+      each val in user
+        li= 'User: ' + val.username
+        li= 'First name: ' + val.firstname
+        li= 'Last name: ' + val.lastname
         li= 'Created: ' + val.created_at
         li= 'Updated: ' + val.updated_at
         br
       else
-        h1 No todos found!
+        h1 User not found!
