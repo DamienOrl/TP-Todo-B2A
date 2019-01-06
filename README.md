@@ -8,11 +8,18 @@ Téléchargez l'archive puis l'extraire dans un environnement linux. Il faut ens
 
 ### Installation
 
-Tapez cette commande dans le terminal en étant situé dans la base de l'archive. 
+Tapez cette commande dans le terminal en étant situé dans la base de l'archive pour télécharger tout les modules
 
 ```
 npm install -g
 ```
+
+Lancez  l'application en tapant :
+
+```
+node index.js
+```
+Pour terminer, il faut cliquer [ici](http://localhost:8080)
 
 ## Authors
 * **Damien Orlando** 
