@@ -21,7 +21,7 @@ node todo.js
 ```
 Pour terminer, il faut cliquer [ici](http://localhost:8080)
 
-## Authors
+## Auteurs
 * **Damien Orlando** 
 * **Maxim Germain**
 
