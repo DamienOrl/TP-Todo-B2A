@@ -17,7 +17,7 @@ npm install -g
 Lancez  l'application en tapant :
 
 ```
-node index.js
+node todo.js
 ```
 Pour terminer, il faut cliquer [ici](http://localhost:8080)
 
